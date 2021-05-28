@@ -1,54 +1,54 @@
-import React from "react";
-import "./Home.css"
-import MovieList from "./MovieList";
-import fetchMovies from "./utils/api";
+import React, { Component } from "react";
+import "./Home.css";
 import PropTypes from "prop-types";
+import fetchMovies from "./utils/api";
+import MovieCard from "./MovieCard";
 
-
-class Home extends React.Component {
-    // Useful when playing with state
-     constructor(props) {
-         super(props)
-         this.state = {
-             isLoading: false,
-             searchTerm: "",
-             movieTitle: "",
-             poster: ""
-         }
-     }
-    
-    componentDidMount() {
-        fetchMovies().then(res => res.json()).then(res => {
-             console.log("Result: ", res);
-             this.setState({movieTitle: res.Title, poster: res.Poster})
-         }).catch( err => console.error(err));
-    }
-    
-    componentDidUpdate(prevProps, newProps) {
-        if(prevProps !== newProps) {
-            console.log("YES")
-        }
-    }
-    render() {
-        let movieTitle;
-        movieTitle = this.state.movieTitle;
-        return(
-            <>
-                <h1 className="heading">{this.props.greeting}</h1>
-                <button onClick={() => this.setState({title: "ok"})}>ok</button>
-                <MovieList>
-                     { movieTitle && <p>{this.state.movieTitle }</p>}
-                </MovieList>
-            </>
-        );
-    }
+class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      movie: {},
+    };
+  }
+  componentDidMount() {
+    fetchMovies()
+      .then((res) => res.json())
+      .then((res) => {
+        this.setState({
+          movie: {
+            title: res.Title,
+            poster: res.Poster,
+            runTime: res.Runtime,
+            genre: res.Genre,
+            plot: res.Plot,
+            actors: res.Actors,
+            rated: res.Rated,
+          },
+        });
+      })
+      .catch((err) => console.error(err));
+  }
+  render() {
+    return (
+      <div className="wrapper">
+        <h1 className="text-center text-uppercase py-3">
+          {this.props.greeting}
+        </h1>
+        <MovieCard movie={this.state.movie} />
+        <div>
+          {/* MOVIE LIST */}
+        </div>
+      </div>
+    );
+  }
 }
 // PROP & DEFAULT TYPES
 Home.propTypes = {
-    greeting: PropTypes.string
-}
+  greeting: PropTypes.string,
+};
 Home.defaultProps = {
-    greeting: "Hello World@@@@!"
-}
+  greeting: "Welcome to Shmoovie",
+};
 
 export default Home;

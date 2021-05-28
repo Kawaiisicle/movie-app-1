@@ -1,9 +1,13 @@
 import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import  Home  from "./Home";
+
 function App() {
-  console.log();
+  
   return (
-    <Home  />
+    <div className="position-relative"style={{backgroundColor: "#042F75"}}>
+      <Home  />
+    </div>
   );
 }
 

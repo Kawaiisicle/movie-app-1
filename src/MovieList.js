@@ -1,13 +1,15 @@
-import React from "react";
+import React, {Component} from "react";
 
-class MovieList extends React.Component {
-    render() {
-        return(
-            <div style={{backgroundColor: "lightblue", padding: "1rem 2.5rem"}}>
-                {this.props.children}
-            </div>
-        );
-    }
+class MovieList extends Component {
+
+  render() {
+    return (
+      <div>
+        
+        
+      </div>
+    );
+  }
 }
 
 export default MovieList;
