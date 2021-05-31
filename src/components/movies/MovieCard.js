@@ -1,16 +1,33 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Modal from "./Modal";
+import { fetchMovieById } from "../../utils/api";
 
 class MovieCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      movie: {},
       isOpen: false,
     };
     this.openModal = this.openModal.bind(this);
   }
-
+  componentDidMount() {
+    console.log("What is props: ", this.props);
+    fetchMovieById(this.props.movieId)
+      .then( res => this.setState({
+          movie: {
+            title: res.Title,
+            poster: res.Poster,
+            runTime: res.Runtime,
+            genre: res.Genre,
+            plot: res.Plot,
+            actors: res.Actors,
+            rated: res.Rated,
+          },
+        }))
+      .catch( err => console.error("An error occured: " + err))
+  }
   openModal() {
     this.setState({
       isOpen: true
@@ -18,7 +35,7 @@ class MovieCard extends Component {
   }
 
   render() {
-    let movie = this.props.movie;
+    let movie = this.state.movie;
     let isOpen = this.state.isOpen;
     return (
       <div className="row justify-content-center my-5 p-0">
@@ -28,12 +45,12 @@ class MovieCard extends Component {
         >
           <img
             className="img-fluid"
-            src={movie.Poster}
-            alt={`Movie poster for ${movie.Title}`}
+            src={movie.poster}
+            alt={`Movie poster for ${movie.title}`}
           />
           <div className="text-center px-4 py-2">
             <p className="h4 text-center" style={{ color: "#29508F" }}>
-              {movie.Title}
+              {movie.title}
             </p>
             <button
               //   ONCLICK
@@ -48,37 +65,37 @@ class MovieCard extends Component {
         <Modal isOpen={isOpen} closeModal={() => this.setState({isOpen: false})}>
           <div className="row">
             <div className="col-md-4 d-flex flex-wrap justify-content-between h4">
-              <p className="h4">{movie.Title}</p>
+              <p className="h4">{movie.title}</p>
               <p
                 className="text-monospace badge text-light"
                 style={{ backgroundColor: "#4276C9" }}
               >
-                {movie.Rated}
+                {movie.rated}
               </p>
               <p
                 className="text-monospace badge text-light"
                 style={{ backgroundColor: "#4276C9" }}
               >
-                {movie.RunTime}
+                {movie.runTime}
               </p>
               <p
                 className="text-monospace badge text-light"
                 style={{ backgroundColor: "#4276C9" }}
               >
-                {movie.Genre}
+                {movie.genre}
               </p>
             </div>
           </div>
           <div className="row">
             <div className="col-md-12">
               <p className="modal_heading">Plot</p>
-              <p>{movie.Plot}</p>
+              <p>{movie.plot}</p>
             </div>
           </div>
           <div className="row">
             <div className="col-md-12">
               <p className="modal_heading">Actors</p>
-              <p>{movie.Actors}</p>
+              <p>{movie.actors}</p>
             </div>
           </div>
         </Modal>

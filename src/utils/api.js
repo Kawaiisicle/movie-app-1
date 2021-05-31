@@ -1,6 +1,16 @@
-const API_URL = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_KEY}&i=tt3896198`;
+const API_URL = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_KEY}`;
 
-const fetchMovies = async (params = "") => await fetch(params ? `${API_URL}&${params}`: API_URL);
+export const fetchMovieById = async (id="tt3896198") => await fetch(`${API_URL}&i=${id}`)
+    .then(res => res.json())
+    .then(res => res)
+    .catch(err => err);
 
-export default fetchMovies;
+export const fetchMoviesByTerm = async searchTerm => await fetch(`${API_URL}&s=${searchTerm}`)
+    .then(res => res.json())
+    .then(res => res)
+    .catch(err => err);
+
+
+
+
 

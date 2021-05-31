@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { fetchMoviesByTerm } from "../../utils/api";
 import MovieCard from "./MovieCard";
-import fetchMovies from "../../utils/api";
+
 
 class MovieList extends Component {
   constructor(props) {
@@ -14,8 +15,7 @@ class MovieList extends Component {
   }
 
   componentDidMount() {
-    fetchMovies(`s=${this.state.searchTerm}`)
-      .then((res) => res.json())
+    fetchMoviesByTerm(this.state.searchTerm)
       .then((res) =>
         this.setState({
              movies: res.Search, 
@@ -32,7 +32,7 @@ class MovieList extends Component {
         <h2>List of Movies</h2>
         { this.state.movies.map( movie => (
             <div key={movie.imdbID}>
-                <MovieCard movie={movie} />
+                <MovieCard movieId={movie.imdbID} />
             </div>
         ))}
       </div>
