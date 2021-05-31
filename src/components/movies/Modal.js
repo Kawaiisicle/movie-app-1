@@ -9,7 +9,9 @@ class Modal extends Component {
                     <div class="modal_content">
                             {this.props.children}
                             <div className="text-center mt-5">
-                                <button ariaLabel="close" onClick={this.props.onClose} className="text-light rounded px-4 py-1" style={{backgroundColor: "#29508F", border: "unset"}}>Close</button>
+                                <button ariaLabel="close"
+                                onClick={this.props.closeModal}
+                                className="text-light rounded px-4 py-1" style={{backgroundColor: "#29508F", border: "unset"}}>Close</button>
                             </div>
                         </div>
                 </div>

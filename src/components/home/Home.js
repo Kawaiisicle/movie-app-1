@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./Home.css";
 import PropTypes from "prop-types";
-import fetchMovies from "./utils/api";
-import MovieCard from "./MovieCard";
+import fetchMovies from "../../utils/api";
+import MovieCard from "../movies/MovieCard";
+import MovieList from "../movies/MovieList";
 
 class Home extends Component {
   constructor(props) {
@@ -17,13 +18,13 @@ class Home extends Component {
       .then((res) => {
         this.setState({
           movie: {
-            title: res.Title,
-            poster: res.Poster,
-            runTime: res.Runtime,
-            genre: res.Genre,
-            plot: res.Plot,
-            actors: res.Actors,
-            rated: res.Rated,
+            Title: res.Title,
+            Poster: res.Poster,
+            RunTime: res.Runtime,
+            Genre: res.Genre,
+            Plot: res.Plot,
+            Actors: res.Actors,
+            Rated: res.Rated,
           },
         });
       })
@@ -38,6 +39,7 @@ class Home extends Component {
         <MovieCard movie={this.state.movie} />
         <div>
           {/* MOVIE LIST */}
+          <MovieList/>
         </div>
       </div>
     );
