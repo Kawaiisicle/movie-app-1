@@ -27,7 +27,6 @@ class Home extends Component {
         <h1 className="text-center text-uppercase py-3">
           {this.props.greeting}
         </h1>
-        <MovieCard  />
         <div>
           {/* MOVIE LIST */}
           <MovieList/>
