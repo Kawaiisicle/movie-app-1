@@ -13,7 +13,6 @@ class MovieCard extends Component {
     this.openModal = this.openModal.bind(this);
   }
   componentDidMount() {
-    console.log("What is props: ", this.props);
     fetchMovieById(this.props.movieId)
       .then( res => this.setState({
           movie: {
@@ -105,8 +104,6 @@ class MovieCard extends Component {
 }
 
 MovieCard.propTypes = {
-  movie: {
-    imdbID: PropTypes.string,
     title: PropTypes.string,
     poster: PropTypes.string,
     runTime: PropTypes.string,
@@ -114,7 +111,6 @@ MovieCard.propTypes = {
     plot: PropTypes.string,
     actors: PropTypes.string,
     rated: PropTypes.string,
-  },
 };
 
 export default MovieCard;

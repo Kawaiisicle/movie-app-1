@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { fetchMoviesByTerm } from "../../utils/api";
 import MovieCard from "./MovieCard";
-
+import SearchForm from "./SearchForm";
 
 class MovieList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      isLoading: false,
       searchTerm: "batman",
       movies: [],
       totalResults: "",
@@ -18,22 +19,42 @@ class MovieList extends Component {
     fetchMoviesByTerm(this.state.searchTerm)
       .then((res) =>
         this.setState({
-             movies: res.Search, 
-             totalResults: res.totalResults 
-            })
+          movies: res.Search,
+          totalResults: res.totalResults,
+        })
       )
-      .catch( err => console.error(err));
+      .catch((err) => console.error(err));
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.searchTerm !== prevState.searchTerm)
+      fetchMoviesByTerm(this.state.searchTerm).then((res) =>
+        this.setState({
+          movies: res.Search,
+          totalResults: res.totalResults,
+        })
+      );
+  }
   render() {
-    console.log("Movies: ", this.state.movies);
     return (
       <div>
-        <h2>List of Movies</h2>
-        { this.state.movies.map( movie => (
-            <div key={movie.imdbID}>
-                <MovieCard movieId={movie.imdbID} />
-            </div>
+        <div className="row">
+          <div className="col-md-3 offset-md-1">
+            <SearchForm
+              onSubmit={(e) => {
+                e.preventDefault();
+                this.setState({ searchTerm: e.target[0].value, isLoading: true });
+              }}
+            />
+          </div>
+          <div className="col-md-6 offset-md-1">
+            <h2>List of Movies</h2>
+          </div>
+        </div>
+        {this.state.movies.map((movie) => (
+          <div key={movie.imdbID}>
+            <MovieCard movieId={movie.imdbID} />
+          </div>
         ))}
       </div>
     );
