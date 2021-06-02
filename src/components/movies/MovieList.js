@@ -51,11 +51,11 @@ class MovieList extends Component {
             <h2>List of Movies</h2>
           </div>
         </div>
-        {this.state.movies.map((movie) => (
+        {this.state.movies ? this.state.movies.map((movie) => (
           <div key={movie.imdbID}>
             <MovieCard movieId={movie.imdbID} />
           </div>
-        ))}
+        )): <p>No results.</p>}
       </div>
     );
   }
