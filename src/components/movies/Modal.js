@@ -5,8 +5,7 @@ class Modal extends Component {
     render() {
         return(
             this.props.isOpen && (
-                <div className="modal_wrapper" tabIndex="-1" aria-label="Modal for movie details">
-                    
+                <div className="modal_wrapper" tabIndex="-1" aria-label="Modal for movie details">   
                         <div class="modal_content">
                             {this.props.children}
                             <div className="text-center mt-5">

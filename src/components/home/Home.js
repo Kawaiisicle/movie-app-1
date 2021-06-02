@@ -1,26 +1,9 @@
 import React, { Component } from "react";
 import "./Home.css";
 import PropTypes from "prop-types";
-import { fetchMovieById } from "../../utils/api";
-import MovieCard from "../movies/MovieCard";
 import MovieList from "../movies/MovieList";
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      movieId: ""
-    };
-  }
-  componentDidMount() {
-    fetchMovieById()
-      .then((res) => 
-        this.setState({
-          movieId: res.imdbID
-        })
-      )
-      .catch(err => console.error("An error occured: " + err))
-  }
   render() {
     return (
       <div className="wrapper">

@@ -64,7 +64,7 @@ class MovieCard extends Component {
         <Modal isOpen={isOpen} closeModal={() => this.setState({isOpen: false})}>
           <div className="row">
             <div className="col-md-4 d-flex flex-wrap justify-content-between h4">
-              <p className="h4">{movie.title}</p>
+             
               <p
                 className="text-monospace badge text-light"
                 style={{ backgroundColor: "#4276C9" }}
