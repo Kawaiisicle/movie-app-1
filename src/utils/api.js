@@ -1,4 +1,4 @@
-const API_URL = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_KEY}`;
+const API_URL = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_KEY}`;
 
 export const fetchMovieById = async (id="tt3896198") => await fetch(`${API_URL}&i=${id}`)
     .then(res => res.json())
